@@ -28,3 +28,5 @@ module.exports =
   monoid: require './monoid'
   functor: require './functor'
   applicative: require './applicative'
+  chain: require './chain'
+  monads: require './monads'
