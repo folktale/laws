@@ -23,7 +23,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-# 
+# Exposed laws
 module.exports =
   semigroup   : require './semigroup'
   monoid      : require './monoid'

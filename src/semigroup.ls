@@ -34,10 +34,8 @@
 #     s.concat(b)
 
 #  1. `b` must be a value of the same Semigroup.
-
-#     1. if `b` is not of the same Semigroup, behaviour of `concat` is
+#     i. if `b` is not of the same Semigroup, behaviour of `concat` is
 #     unspecified.
-
 #  2. `concat` must return a value of the same Semigroup.
 
 

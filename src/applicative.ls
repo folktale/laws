@@ -42,10 +42,8 @@
 #     a.ap(b)
 
 #  1. `a` must be an Applicative of a function,
-
 #     1. If `a` does not represent a function, the behaviour of `ap` is
 #        unspecified.
-
 #  2. `b` must be an Applicative of any value.
 #  3. `ap` must apply the function in Applicative `a` to the value in
 #     Applicative `b`.
@@ -60,8 +58,8 @@
 #     a.constructor.of(b)
 
 #  1. `of` must provide a value of the same Appicative.
-
-#     1. No parts of `b` should be checked.
+#     1. No parts of `b` should be checked.  
+# 
 
 
 # ## 1st Law: Identity

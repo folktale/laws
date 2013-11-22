@@ -34,11 +34,9 @@
 #     m.chain(f)
 
 #  1. `f` must be a function which returns a value
-
 #     1. If `f` is not a function, the behaviour of `chain` is
 #        unspecified.
 #     2. `f` must return a value of the same Chain.
-
 #  2. `chain` must return a value of the same Chain.
 
 

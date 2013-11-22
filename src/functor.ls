@@ -34,11 +34,9 @@
 #     u.map(f)
 
 #  1. `f` must be a function,
-
 #     1. If `f` is not a function, the behaviour of `map` is
 #     unspecified.
 #     2. `f` can return any value.
-
 #  2. `map` must return a value of the same Functor.
 
 
