@@ -23,10 +23,11 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+# 
 module.exports =
-  semigroup: require './semigroup'
-  monoid: require './monoid'
-  functor: require './functor'
-  applicative: require './applicative'
-  chain: require './chain'
-  monads: require './monads'
+  semigroup   : require './semigroup'
+  monoid      : require './monoid'
+  functor     : require './functor'
+  applicative : require './applicative'
+  chain       : require './chain'
+  monad       : require './monad'
