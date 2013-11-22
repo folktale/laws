@@ -4,7 +4,8 @@
   "description": "Verifications for Monad laws according to fantasy-land.",
   "main": "lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "make test",
+    "prepublish": "make compile"
   },
   "repository": {
     "type": "git",
