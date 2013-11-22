@@ -10,6 +10,27 @@ Laws
 [Claire][] properties for verifying Monad and other algebraic structures' laws,
 conforming to the [Fantasy Land][] specification.
 
+To use this library, your algebraic structure needs to implement the `Eq`
+typeclass, defined as:
+
+```hs
+class Eq a where
+  isEqual :: a -> a -> Bool
+```
+
+Example:
+
+```js
+var Maybe = {
+  /* (...) */
+  isEqual: function(b) { 
+    return this.isNothing?  b.isNothing
+    :      this.isJust?     this.value === b.value
+  }
+  /* (...) */
+}
+```
+
 [Claire]: https://github.com/hifivejs/claire
 [Fantasy Land]: https://github.com/fantasyland/fantasy-land
 
