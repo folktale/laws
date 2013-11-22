@@ -1,0 +1,29 @@
+{
+  "name": "laws",
+  "version": "0.1.0",
+  "description": "Verifications for Monad laws according to fantasy-land.",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/folktale/laws.git"
+  },
+  "keywords": [
+    "laws",
+    "monads",
+    "fantasy-land",
+    "folktale",
+    "quickcheck",
+    "properties"
+  ],
+  "author": "Quildreen Motta",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/folktale/laws/issues"
+  },
+  "dependencies": {
+    "claire": "~0.4.1"
+  }
+}
