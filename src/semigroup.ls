@@ -46,7 +46,7 @@
 # `a.concat(b).concat(c)` is equivalent to `a.concat(b.concat(c))`.
 
 export associativity = (f) ->
-  for-all (Any, Any) .satisfy (a, b) ->
+  for-all(Any, Any) .satisfy (a, b) ->
     a = (f a) ++ (f b) ++ (f c)
     b = (f a) ++ ((f b) ++ (f c))
 
