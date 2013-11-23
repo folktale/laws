@@ -24,7 +24,7 @@
  */
 
 
-{ for-all, data: { Any } } = require 'claire'
+{ for-all, data: { Int } } = require 'claire'
 
 # A value that implements the Monad specification must also implement
 # the Applicative and Chain specifications.
@@ -45,7 +45,7 @@
 
 export left-identity = (f) ->
   M = f!
-  for-all (Any) .satisfy (a) ->
+  for-all(Int) .satisfy (a) ->
     m = M.of a
     return m.chain((b) -> M.of b) .is-equal (M.of a)
 
@@ -56,6 +56,6 @@ export left-identity = (f) ->
 
 export right-identity = (f) ->
   M = f!
-  for-all (Any) .satisfy (a) ->
+  for-all(Int) .satisfy (a) ->
     m = M.of a
     m.chain(M.of) .is-equal m

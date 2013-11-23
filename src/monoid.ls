@@ -24,7 +24,7 @@
  */
 
 
-{ for-all, data: { Any } } = require 'claire'
+{ for-all, data: { Int } } = require 'claire'
 
 # A value that implements the Monoid specification must also implement
 # the Semigroup specification.
@@ -45,7 +45,7 @@
 # `m.concat(m.empty())` is equivalent to `m`
 
 export right-identity = (f) ->
-  for-all (Any) .satisfy (a) ->
+  for-all(Int) .satisfy (a) ->
     m = f a
     return (m ++ m.empty!).is-equal m
 
@@ -55,6 +55,6 @@ export right-identity = (f) ->
 # `m.empty().concat(m)` is equivalent to `m`
 
 export left-identity = (f) ->
-  for-all (Any) .satisfy (a) ->
+  for-all(Int) .satisfy (a) ->
     m = f a
     return (m.empty! ++ m).is-equal m

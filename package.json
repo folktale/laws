@@ -30,6 +30,9 @@
     "browserify": "~2.35.4"
   },
   "devDependencies": {
-    "LiveScript": "~1.2.0"
+    "LiveScript": "~1.2.0",
+    "hifive-tap": "~0.1.0",
+    "hifive": "~0.1.0",
+    "deep-equal": "~0.1.0"
   }
 }

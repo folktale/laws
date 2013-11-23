@@ -24,7 +24,7 @@
  */
 
 
-{ for-all, data: { Any, Int } } = require 'claire'
+{ for-all, data: { Int } } = require 'claire'
 
 # ## The `map` method
 
@@ -45,7 +45,7 @@
 # `u.map((a) => a)` is equivalent to `u`
 
 export identity = (f) ->
-  for-all (Any) .satisfy (a) ->
+  for-all(Int) .satisfy (a) ->
     ((f a).map (b) -> b).is-equal (f a)
 
 

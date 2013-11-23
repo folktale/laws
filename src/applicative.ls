@@ -24,7 +24,7 @@
  */
 
 
-{ for-all, data: { Any, Int } } = require 'claire'
+{ for-all, data: { Int } } = require 'claire'
 
 # A value that implements the Applicative specification must also
 # implement the Functor specification.
@@ -68,7 +68,7 @@
 
 export identity = (f) ->
   A = f!
-  for-all (Any) .satisfy (a) ->
+  for-all(Int) .satisfy (a) ->
     (A.of (b) -> b).ap(A.of a).is-equal (A.of a)
 
 
@@ -79,7 +79,7 @@ export identity = (f) ->
 
 export composition = (f) ->
   A = f!
-  for-all (Int) .satisfy (a) ->
+  for-all(Int) .satisfy (a) ->
     g = (* 2)
     h = (- 1)
     x = (A.of (f) -> (g) -> (x) -> f (g x)).ap(A.of g).ap(A.of h).ap(A.of a)
@@ -94,7 +94,7 @@ export composition = (f) ->
 
 export homomorphism = (f) ->
   A = f!
-  for-all (Int) .satisfy (a) ->
+  for-all(Int) .satisfy (a) ->
     g = (* 2)
     return (A.of g).ap(A.of a).is-equal (A.of (g a))
 
@@ -105,7 +105,7 @@ export homomorphism = (f) ->
 
 export interchange = (f) ->
   A = f!
-  for-all (Int) .satisfy (a) ->
+  for-all(Int) .satisfy (a) ->
     g = (* 2)
     return (A.of g).ap(A.of a).is-equal (A.of (f) -> f a).ap(A.of g)
 
