@@ -1,0 +1,62 @@
+<!DOCTYPE html><html lang="en"><head><title>src/applicative</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="src/applicative"><meta name="groc-project-path" content="src/applicative.ls"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/applicative.ls</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="laws-for-applicatives">Laws for Applicatives</h1></div></div></div><div class="segment"><div class="code folded"><div class="wrapper marker"><span class="c1">/** </span></div><div class="wrapper"><span class="cm">/** </span>
+<span class="cm"> * Copyright (c) 2013 Quildreen &quot;Sorella&quot; Motta &lt;quildreen@gmail.com&gt;</span>
+<span class="cm"> *</span>
+<span class="cm"> * Permission is hereby granted, free of charge, to any person</span>
+<span class="cm"> * obtaining a copy of this software and associated documentation files</span>
+<span class="cm"> * (the &quot;Software&quot;), to deal in the Software without restriction,</span>
+<span class="cm"> * including without limitation the rights to use, copy, modify, merge,</span>
+<span class="cm"> * publish, distribute, sublicense, and/or sell copies of the Software,</span>
+<span class="cm"> * and to permit persons to whom the Software is furnished to do so,</span>
+<span class="cm"> * subject to the following conditions:</span>
+<span class="cm"> *</span>
+<span class="cm"> * The above copyright notice and this permission notice shall be</span>
+<span class="cm"> * included in all copies or substantial portions of the Software.</span>
+<span class="cm"> *</span>
+<span class="cm"> * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND,</span>
+<span class="cm"> * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF</span>
+<span class="cm"> * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND</span>
+<span class="cm"> * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE</span>
+<span class="cm"> * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION</span>
+<span class="cm"> * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION</span>
+<span class="cm"> * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</span>
+<span class="cm"> */</span>
+
+
+<span class="p">{</span> <span class="k">for</span><span class="o">-</span><span class="nx">all</span><span class="p">,</span> <span class="nv">data: </span><span class="p">{</span> <span class="nx">Int</span> <span class="p">}</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;claire&#39;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>A value that implements the Applicative specification must also
+implement the Functor specification.</p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>A value which satisfies the specification does not need to implement:</p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><pre><code>Functor's `map`; derivable as `(f) =&gt; this.of(f).ap(this)`
+</code></pre></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="theapmethod">The <code>ap</code> method</h2></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>A value which has an Applicative must provide an <code>ap</code> method. The <code>ap</code>
+method takes one argument:</p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><pre><code>a.ap(b)
+</code></pre></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ol>
+<li><code>a</code> must be an Applicative of a function,
+<ol><li>If <code>a</code> does not represent a function, the behaviour of <code>ap</code> is
+unspecified.</li></ol></li>
+<li><code>b</code> must be an Applicative of any value.</li>
+<li><code>ap</code> must apply the function in Applicative <code>a</code> to the value in
+Applicative <code>b</code>.</li>
+</ol></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="theofmethod">The <code>of</code> method</h2></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>A value which has an Applicative must provide an <code>of</code> method on itself
+or its <code>constructor</code> object. The <code>of</code> method takes one argument.</p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><pre><code>a.of(b)
+a.constructor.of(b)
+</code></pre></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ol>
+<li><code>of</code> must provide a value of the same Appicative.
+<ol><li>No parts of <code>b</code> should be checked.  </li></ol></li>
+</ol></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="1st-law-identity">1st Law: Identity</h2></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>a.of((a) =&gt; a).ap(v)</code> is equivalent to <code>v</code>.</p></div></div><div class="code"><div class="wrapper"><span class="nx">export</span> <span class="nv">identity = </span><span class="nf">(f) -&gt;</span>
+  <span class="nv">A = </span><span class="nx">f</span><span class="o">!</span>
+  <span class="k">for</span><span class="o">-</span><span class="nx">all</span><span class="p">(</span><span class="nx">Int</span><span class="p">)</span> <span class="p">.</span><span class="nx">satisfy</span> <span class="nf">(a) -&gt;</span>
+    <span class="p">(</span><span class="nx">A</span><span class="p">.</span><span class="nx">of</span> <span class="nf">(b) -&gt;</span> <span class="nx">b</span><span class="p">).</span><span class="nx">ap</span><span class="p">(</span><span class="nx">A</span><span class="p">.</span><span class="nx">of</span> <span class="nx">a</span><span class="p">).</span><span class="nx">is-equal</span> <span class="p">(</span><span class="nx">A</span><span class="p">.</span><span class="nx">of</span> <span class="nx">a</span><span class="p">)</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="2nd-law-composition">2nd Law: Composition</h2></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>a.of((f) =&gt; (g) =&gt; (x) =&gt; f(g(x))).ap(u).ap(v).ap(w)</code> is equivalent
+to <code>u.ap(v.ap(w))</code></p></div></div><div class="code"><div class="wrapper"><span class="nx">export</span> <span class="nv">composition = </span><span class="nf">(f) -&gt;</span>
+  <span class="nv">A = </span><span class="nx">f</span><span class="o">!</span>
+  <span class="k">for</span><span class="o">-</span><span class="nx">all</span><span class="p">(</span><span class="nx">Int</span><span class="p">)</span> <span class="p">.</span><span class="nx">satisfy</span> <span class="nf">(a) -&gt;</span>
+    <span class="nv">g = </span><span class="p">(</span><span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="nv">h = </span><span class="p">(</span><span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="nv">x = </span><span class="p">(</span><span class="nx">A</span><span class="p">.</span><span class="nx">of</span> <span class="nf">(f) -&gt;</span> <span class="nf">(g) -&gt;</span> <span class="nf">(x) -&gt;</span> <span class="nx">f</span> <span class="p">(</span><span class="nx">g</span> <span class="nx">x</span><span class="p">)).</span><span class="nx">ap</span><span class="p">(</span><span class="nx">A</span><span class="p">.</span><span class="nx">of</span> <span class="nx">g</span><span class="p">).</span><span class="nx">ap</span><span class="p">(</span><span class="nx">A</span><span class="p">.</span><span class="nx">of</span> <span class="nx">h</span><span class="p">).</span><span class="nx">ap</span><span class="p">(</span><span class="nx">A</span><span class="p">.</span><span class="nx">of</span> <span class="nx">a</span><span class="p">)</span>
+    <span class="nv">y = </span><span class="p">(</span><span class="nx">A</span><span class="p">.</span><span class="nx">of</span> <span class="nx">g</span><span class="p">).</span><span class="nx">ap</span><span class="p">((</span><span class="nx">A</span><span class="p">.</span><span class="nx">of</span> <span class="nx">h</span><span class="p">).</span><span class="nx">ap</span><span class="p">(</span><span class="nx">A</span><span class="p">.</span><span class="nx">of</span> <span class="nx">a</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="nx">x</span><span class="p">.</span><span class="nx">is-equal</span> <span class="nx">y</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="3rd-law-homomorphism">3rd Law: Homomorphism</h2></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>a.of(f).ap(a.of(x))</code> is equivalent to <code>a.of(f(x))</code></p></div></div><div class="code"><div class="wrapper"><span class="nx">export</span> <span class="nv">homomorphism = </span><span class="nf">(f) -&gt;</span>
+  <span class="nv">A = </span><span class="nx">f</span><span class="o">!</span>
+  <span class="k">for</span><span class="o">-</span><span class="nx">all</span><span class="p">(</span><span class="nx">Int</span><span class="p">)</span> <span class="p">.</span><span class="nx">satisfy</span> <span class="nf">(a) -&gt;</span>
+    <span class="nv">g = </span><span class="p">(</span><span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="nx">A</span><span class="p">.</span><span class="nx">of</span> <span class="nx">g</span><span class="p">).</span><span class="nx">ap</span><span class="p">(</span><span class="nx">A</span><span class="p">.</span><span class="nx">of</span> <span class="nx">a</span><span class="p">).</span><span class="nx">is-equal</span> <span class="p">(</span><span class="nx">A</span><span class="p">.</span><span class="nx">of</span> <span class="p">(</span><span class="nx">g</span> <span class="nx">a</span><span class="p">))</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="4th-law-interchange">4th Law: Interchange</h2></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>u.ap(a.of(y))</code> is equivalent to <code>a.of((f) =&gt; f(y)).ap(u)</code></p></div></div><div class="code"><div class="wrapper"><span class="nx">export</span> <span class="nv">interchange = </span><span class="nf">(f) -&gt;</span>
+  <span class="nv">A = </span><span class="nx">f</span><span class="o">!</span>
+  <span class="k">for</span><span class="o">-</span><span class="nx">all</span><span class="p">(</span><span class="nx">Int</span><span class="p">)</span> <span class="p">.</span><span class="nx">satisfy</span> <span class="nf">(a) -&gt;</span>
+    <span class="nv">g = </span><span class="p">(</span><span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="nx">A</span><span class="p">.</span><span class="nx">of</span> <span class="nx">g</span><span class="p">).</span><span class="nx">ap</span><span class="p">(</span><span class="nx">A</span><span class="p">.</span><span class="nx">of</span> <span class="nx">a</span><span class="p">).</span><span class="nx">is-equal</span> <span class="p">(</span><span class="nx">A</span><span class="p">.</span><span class="nx">of</span> <span class="nf">(f) -&gt;</span> <span class="nx">f</span> <span class="nx">a</span><span class="p">).</span><span class="nx">ap</span><span class="p">(</span><span class="nx">A</span><span class="p">.</span><span class="nx">of</span> <span class="nx">g</span><span class="p">)</span></div></div></div></div></body></html>

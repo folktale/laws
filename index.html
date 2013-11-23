@@ -1,0 +1,164 @@
+<!DOCTYPE html><html lang="en"><head><title>index</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="index"><meta name="groc-project-path" content="README.md"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">README.md</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="laws">Laws</h1>
+
+<p><a href="https://travis-ci.org/folktale/laws"><img src="https://secure.travis-ci.org/folktale/laws.png?branch=master" alt="Build Status" title="" /></a>
+<a href="http://badge.fury.io/js/laws"><img src="https://badge.fury.io/js/laws.png" alt="NPM version" title="" /></a>
+<a href="https://david-dm.org/folktale/laws"><img src="https://david-dm.org/folktale/laws.png" alt="Dependencies Status" title="" /></a>
+<a href="http://github.com/hughsk/stability-badges"><img src="http://hughsk.github.io/stability-badges/dist/experimental.svg" alt="experimental" title="" /></a></p>
+
+<p><a href="https://github.com/hifivejs/claire">Claire</a> properties for verifying Monad and other algebraic structures' laws,
+conforming to the <a href="https://github.com/fantasyland/fantasy-land">Fantasy Land</a> specification.</p>
+
+<h2 id="example">Example</h2>
+
+<pre><code class="js">var Maybe = require('monads.maybe')
+var laws  = require('laws')
+
+laws.functors.identity(Maybe.Just).asTest({ verbose: true, times: 100 })()
+// + OK passed 100 tests.
+</code></pre>
+
+<h2 id="installing">Installing</h2>
+
+<p>The easiest way is to grab it from NPM. If you're running in a Browser
+environment, you can use <a href="http://browserify.org/">Browserify</a></p>
+
+<pre><code>$ npm install laws
+</code></pre>
+
+<h3 id="using-with-commonjs">Using with CommonJS</h3>
+
+<p>If you're not using NPM, <a href="https://github.com/folktale/laws/releases/download/v0.2.0/laws-0.2.0.tar.gz">Download the latest release</a>, and require
+the <code>folktale.laws.umd.js</code> file:</p>
+
+<pre><code class="js">var laws = require('laws')
+</code></pre>
+
+<h3 id="using-with-amd">Using with AMD</h3>
+
+<p><a href="https://github.com/folktale/laws/releases/download/v0.2.0/laws-0.2.0.tar.gz">Download the latest release</a>, and require the <code>folktale.laws.umd.js</code>
+file:</p>
+
+<pre><code class="js">require(['folktale.laws'], function(laws) {
+  ...
+})
+</code></pre>
+
+<h3 id="using-without-modules">Using without modules</h3>
+
+<p><a href="https://github.com/folktale/laws/releases/download/v0.2.0/laws-0.2.0.tar.gz">Download the latest release</a>, and load the <code>folktale.laws.umd.js</code>
+file. The properties are exposed in the global <code>Laws</code> object:</p>
+
+<pre><code class="html">&lt;script src="/path/to/folktale.laws.umd.js"&gt;&lt;/script&gt;
+</code></pre>
+
+<h3 id="compiling-from-source">Compiling from source</h3>
+
+<p>If you want to compile this library from the source, you'll need <a href="http://git-scm.com/">Git</a>,
+<a href="http://www.gnu.org/software/make/">Make</a>, <a href="http://nodejs.org/">Node.js</a>, and run the following commands:</p>
+
+<pre><code>$ git clone git://github.com/folktale/laws.git
+$ cd laws
+$ npm install
+$ make bundle
+</code></pre>
+
+<p>This will generate the <code>dist/folktale.laws.umd.js</code> file, which you can load in
+any JavaScript environment.</p>
+
+<h2 id="getting-started">Getting Started</h2>
+
+<p>This library provides properties for verifying the correctness of an
+implementation of algebraic structures according to the <a href="https://github.com/fantasyland/fantasy-land">Fantasy Land</a>
+specification. They do so by generating random inputs and checking if the
+algebraic laws holds for your structure.</p>
+
+<p>In order to use these properties, your algebraic library needs to implement the
+<code>Eq</code> typeclass, defined as:</p>
+
+<pre><code class="hs">class Eq a where
+  -- | True if both structures are equivalent
+  isEqual :: a -&gt; a -&gt; Bool
+</code></pre>
+
+<p>Here's an example of such implementation, for a <code>Maybe(a)</code> monad:</p>
+
+<pre><code class="js">var Maybe = {
+  /* (...) */
+  isEqual: function(b) { 
+    return this.isNothing?  b.isNothing
+    :      this.isJust?     this.value === b.value
+  }
+  /* (...) */
+}
+</code></pre>
+
+<h3 id="the-laws">The Laws</h3>
+
+<ul>
+<li>Applicatives
+<ol><li>Identity</li>
+<li>Composition</li>
+<li>Homomorphism</li>
+<li>Interchange</li></ol></li>
+<li>Chains
+<ol><li>Associativity</li></ol></li>
+<li>Functors
+<ol><li>Identity</li>
+<li>Composition</li></ol></li>
+<li>Monads
+<ol><li>Left identity</li>
+<li>Right identity</li></ol></li>
+<li>Monoids
+<ol><li>Left identity</li>
+<li>Right identity</li></ol></li>
+<li>Semigroups
+<ol><li>Associativity</li></ol></li>
+</ul>
+
+<h3 id="using-the-laws">Using the laws</h3>
+
+<p>To verify if a data structure conforms to the laws, you need to partially apply
+the law to a function that constructs a structure holding a single value. For
+example, if you have an <code>Identity</code> container and want to check if it conforms
+to the Semigroup's law of associativity:</p>
+
+<pre><code class="js">// :: a -&gt; Id a
+function makeId(a) {
+  return new Id(a)
+}
+
+laws.semigroup.associativity(makeId).asTest({ verbose: true })()
+// + OK passed 100 tests
+</code></pre>
+
+<p>Note that applying the law to the constructor function gives you back a
+<a href="https://github.com/hifivejs/claire">Claire</a> property. There are different ways of using this object, but the
+easiest one is to use the <code>asTest(configuration)</code> method to return a test
+function. When invoked (with no parameters), this test function will repeatedly
+generate random inputs to test if your implementation behaves correctly
+according to the laws.</p>
+
+<p>If any of the inputs invalidates the property, an error is thrown with detailed
+information about why the property was invalidated. You can control both the
+amount of details in the reports, and the number of random tests that are
+performed by passing a configuration object to the <code>asTest</code> method. By default
+the reports are concise and only 100 random tests are performed.</p>
+
+<pre><code class="hs">class Configuration where
+  verbose :: Bool       -- * whether to output a detailed report or not
+  times   :: Int        -- * number of random tests to perform
+</code></pre>
+
+<p>Do note that if <code>verbose</code> is false, no message will be printed to the standard
+output by default.</p>
+
+<h2 id="platform-support">Platform support</h2>
+
+<p>This library assumes an ES5 environment, but can be easily supported in ES3
+platforms by the use of shims. Just include <a href="https://github.com/kriskowal/es5-shim">es5-shim</a> :)</p>
+
+<h2 id="licence">Licence</h2>
+
+<p>Copyright (c) 2013 Quildreen Motta.</p>
+
+<p>Released under the <a href="https://github.com/folktale/monads.maybe/blob/master/LICENCE">MIT licence</a>.</p></div></div></div></div></body></html>

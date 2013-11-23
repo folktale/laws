@@ -1,0 +1,38 @@
+<!DOCTYPE html><html lang="en"><head><title>src/chain</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="src/chain"><meta name="groc-project-path" content="src/chain.ls"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/chain.ls</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="laws-for-chain">Laws for Chain</h1></div></div></div><div class="segment"><div class="code folded"><div class="wrapper marker"><span class="c1">/** </span></div><div class="wrapper"><span class="cm">/** </span>
+<span class="cm"> * Copyright (c) 2013 Quildreen &quot;Sorella&quot; Motta &lt;quildreen@gmail.com&gt;</span>
+<span class="cm"> *</span>
+<span class="cm"> * Permission is hereby granted, free of charge, to any person</span>
+<span class="cm"> * obtaining a copy of this software and associated documentation files</span>
+<span class="cm"> * (the &quot;Software&quot;), to deal in the Software without restriction,</span>
+<span class="cm"> * including without limitation the rights to use, copy, modify, merge,</span>
+<span class="cm"> * publish, distribute, sublicense, and/or sell copies of the Software,</span>
+<span class="cm"> * and to permit persons to whom the Software is furnished to do so,</span>
+<span class="cm"> * subject to the following conditions:</span>
+<span class="cm"> *</span>
+<span class="cm"> * The above copyright notice and this permission notice shall be</span>
+<span class="cm"> * included in all copies or substantial portions of the Software.</span>
+<span class="cm"> *</span>
+<span class="cm"> * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND,</span>
+<span class="cm"> * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF</span>
+<span class="cm"> * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND</span>
+<span class="cm"> * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE</span>
+<span class="cm"> * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION</span>
+<span class="cm"> * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION</span>
+<span class="cm"> * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</span>
+<span class="cm"> */</span>
+
+
+<span class="p">{</span> <span class="k">for</span><span class="o">-</span><span class="nx">all</span><span class="p">,</span> <span class="nv">data: </span><span class="p">{</span> <span class="nx">Int</span> <span class="p">}</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;claire&#39;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="thechainmethod">The <code>chain</code> method</h2></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>A value which has a Chain must provide a <code>chain</code> method. The <code>chain</code>
+method takes one argument.</p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><pre><code>m.chain(f)
+</code></pre></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ol>
+<li><code>f</code> must be a function which returns a value
+<ol><li>If <code>f</code> is not a function, the behaviour of <code>chain</code> is
+unspecified.</li>
+<li><code>f</code> must return a value of the same Chain.</li></ol></li>
+<li><code>chain</code> must return a value of the same Chain.</li>
+</ol></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="1st-law-associativity">1st Law: Associativity</h2></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>m.chain(f).chain(g)</code> is equivalent to <code>m.chain((x) =&gt; f(x).chain(g))</code></p></div></div><div class="code"><div class="wrapper"><span class="nx">export</span> <span class="nv">associativity = </span><span class="nf">(f) -&gt;</span>
+  <span class="k">for</span><span class="o">-</span><span class="nx">all</span> <span class="p">(</span><span class="nx">Int</span><span class="p">)</span> <span class="p">.</span><span class="nx">satisfy</span> <span class="nf">(a) -&gt;</span>
+    <span class="nv">g = </span><span class="nf">(a) -&gt;</span> <span class="nx">f</span> <span class="p">(</span><span class="nx">a</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="nv">h = </span><span class="nf">(a) -&gt;</span> <span class="nx">f</span> <span class="p">(</span><span class="nx">a</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="nx">f</span> <span class="nx">a</span><span class="p">).</span><span class="nx">chain</span><span class="p">(</span><span class="nx">g</span><span class="p">).</span><span class="nx">chain</span><span class="p">(</span><span class="nx">h</span><span class="p">).</span><span class="nx">is-equal</span> <span class="p">(</span><span class="nx">f</span> <span class="nx">a</span><span class="p">).</span><span class="nx">chain</span> <span class="nf">(x) -&gt;</span> <span class="nx">g</span><span class="p">(</span><span class="nx">x</span><span class="p">).</span><span class="nx">chain</span> <span class="nx">h</span></div></div></div></div></body></html>
