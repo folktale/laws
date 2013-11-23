@@ -45,7 +45,7 @@ the `folktale.laws.umd.js` file:
 var laws = require('laws')
 ```
 
-[release]: https://github.com/folktale/laws/releases/download/v0.1.0/laws-0.1.0.tar.gz
+[release]: https://github.com/folktale/laws/releases/download/v0.2.0/laws-0.2.0.tar.gz
 
 
 ### Using with AMD
