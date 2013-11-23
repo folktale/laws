@@ -58,4 +58,4 @@ export composition = (f) ->
     g = (* 2)
     h = (- 1)
 
-    return ((f a).map (b) -> g (h b)).is-equal (f a).map(g).map(h)
+    return ((f a).map (b) -> g (h b)).is-equal (f a).map(h).map(g)
