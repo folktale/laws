@@ -3,7 +3,8 @@ lsc        = $(bin)/lsc
 browserify = $(bin)/browserify
 groc       = $(bin)/groc
 uglify     = $(bin)/uglifyjs
-version    = node -e 'console.log(require("./package.json").version)'
+VERSION    = $(shell node -e 'console.log(require("./package.json").version)')
+
 
 lib: src/*.ls
 	$(lsc) -o lib -c src/*.ls
@@ -30,19 +31,20 @@ documentation:
           src/*.ls README.md
 
 clean:
-	rm -rf dist build lib *.tar.gz
+	rm -rf dist build lib
 
 test:
 	$(lsc) test/node.ls
 
-package: compile documentation bundle
-	mkdir -p dist/laws-`$(version)`
-	cp -r docs/literate dist/laws-`$(version)`
-	cp -r lib dist/laws-`$(version)`
-	cp dist/*.js dist/laws-`$(version)`
-	cp package.json dist/laws-`$(version)`
-	cp README.md dist/laws-`$(version)`
-	cp LICENCE dist/laws-`$(version)`
-	tar -czf laws-`$(version)`.tar.gz dist/laws-`$(version)`
+package: compile documentation bundle minify
+	mkdir -p dist/laws-$(VERSION)
+	cp -r docs/literate dist/laws-$(VERSION)
+	cp -r lib dist/laws-$(VERSION)
+	cp dist/*.js dist/laws-$(VERSION)
+	cp package.json dist/laws-$(VERSION)
+	cp README.md dist/laws-$(VERSION)
+	cp LICENCE dist/laws-$(VERSION)
+	cd dist && tar -czf laws-$(VERSION).tar.gz laws-$(VERSION)
+
 
 .PHONY: test
