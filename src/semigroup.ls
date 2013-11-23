@@ -24,7 +24,7 @@
  */
 
 
-{ for-all, data: { Any } } = require 'claire'
+{ for-all, data: { Int } } = require 'claire'
 
 # ## The `concat` method
 
@@ -44,8 +44,8 @@
 # `a.concat(b).concat(c)` is equivalent to `a.concat(b.concat(c))`.
 
 export associativity = (f) ->
-  for-all(Any, Any) .satisfy (a, b) ->
-    a = (f a) ++ (f b) ++ (f c)
-    b = (f a) ++ ((f b) ++ (f c))
+  for-all(Int, Int, Int) .satisfy (a, b, c) ->
+    x = (f a).concat(f b).concat(f c)
+    y = (f a).concat((f b).concat(f c))
 
-    a.is-equal b
+    x.is-equal y
