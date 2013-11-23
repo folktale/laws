@@ -38,7 +38,7 @@ test:
 
 package: compile documentation bundle minify
 	mkdir -p dist/laws-$(VERSION)
-	cp -r docs/literate dist/laws-$(VERSION)
+	cp -r docs/literate dist/laws-$(VERSION)/docs
 	cp -r lib dist/laws-$(VERSION)
 	cp dist/*.js dist/laws-$(VERSION)
 	cp package.json dist/laws-$(VERSION)
