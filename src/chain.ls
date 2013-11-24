@@ -45,7 +45,7 @@
 # `m.chain(f).chain(g)` is equivalent to `m.chain((x) => f(x).chain(g))`
 
 export associativity = (f) ->
-  for-all (Int) .satisfy (a) ->
+  for-all (Int).satisfy (a) ->
     g = (a) -> f (a * 2)
     h = (a) -> f (a - 1)
 

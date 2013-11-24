@@ -45,7 +45,7 @@
 # `u.map((a) => a)` is equivalent to `u`
 
 export identity = (f) ->
-  for-all(Int) .satisfy (a) ->
+  for-all(Int).satisfy (a) ->
     ((f a).map (b) -> b).is-equal (f a)
 
 
@@ -54,7 +54,7 @@ export identity = (f) ->
 # `u.map((a) -> f(g(a))` is equivalent to `u.map(f).map(g)`
 
 export composition = (f) ->
-  for-all (Int) .satisfy (a) ->
+  for-all(Int).satisfy (a) ->
     g = (* 2)
     h = (- 1)
 
