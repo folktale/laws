@@ -666,6 +666,116 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           ]
         }
       ]
+    }, {
+      "type": "folder",
+      "data": {
+        "path": "test",
+        "title": "test"
+      },
+      "depth": 1,
+      "children": [
+        {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".ls", "Slakefile"],
+              "pygmentsLexer": "livescript",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["#"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "LiveScript"
+            },
+            "sourcePath": "/home/queen/Projects/folktale/laws/test/identity.ls",
+            "projectPath": "test/identity.ls",
+            "targetPath": "test/identity",
+            "pageTitle": "test/identity",
+            "firstHeader": {
+              "type": "heading",
+              "data": {
+                "level": 1,
+                "title": "The Identity container",
+                "slug": "the-identity-container",
+                "isFileHeader": true
+              },
+              "depth": 1
+            },
+            "title": "The Identity container"
+          },
+          "depth": 2,
+          "outline": []
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".ls", "Slakefile"],
+              "pygmentsLexer": "livescript",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["#"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "LiveScript"
+            },
+            "sourcePath": "/home/queen/Projects/folktale/laws/test/node.ls",
+            "projectPath": "test/node.ls",
+            "targetPath": "test/node",
+            "pageTitle": "test/node",
+            "firstHeader": {
+              "type": "heading",
+              "data": {
+                "level": 1,
+                "title": "A node test runner",
+                "slug": "a-node-test-runner",
+                "isFileHeader": true
+              },
+              "depth": 1
+            },
+            "title": "A node test runner"
+          },
+          "depth": 2,
+          "outline": []
+        }, {
+          "type": "folder",
+          "data": {
+            "path": "test/specs",
+            "title": "specs"
+          },
+          "depth": 2,
+          "children": [
+            {
+              "type": "file",
+              "data": {
+                "language": {
+                  "nameMatchers": [".ls", "Slakefile"],
+                  "pygmentsLexer": "livescript",
+                  "multiLineComment": ["/*", "*", "*/"],
+                  "singleLineComment": ["#"],
+                  "ignorePrefix": "}",
+                  "foldPrefix": "^",
+                  "name": "LiveScript"
+                },
+                "sourcePath": "/home/queen/Projects/folktale/laws/test/specs/index.ls",
+                "projectPath": "test/specs/index.ls",
+                "targetPath": "test/specs/index",
+                "pageTitle": "test/specs/index",
+                "firstHeader": {
+                  "type": "heading",
+                  "data": {
+                    "level": 1,
+                    "title": "Specification for the laws",
+                    "slug": "specification-for-the-laws",
+                    "isFileHeader": true
+                  },
+                  "depth": 1
+                },
+                "title": "Specification for the laws"
+              },
+              "depth": 3,
+              "outline": []
+            }
+          ]
+        }
+      ]
     }
   ];
 
