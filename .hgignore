@@ -5,3 +5,4 @@ lib
 dist
 npm-debug.log
 docs/literate
+.branches
