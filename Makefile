@@ -27,8 +27,8 @@ compile: lib
 
 documentation:
 	$(groc) --index "README.md"                                              \
-          --out "docs/literate"                                            \
-          src/*.ls README.md
+	        --out "docs/literate"                                            \
+	        src/*.ls test/*.ls test/**/*.ls README.md
 
 clean:
 	rm -rf dist build lib
