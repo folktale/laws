@@ -21,7 +21,7 @@ conforming to the [Fantasy Land][] specification.
 var Maybe = require('monads.maybe')
 var laws  = require('laws')
 
-laws.functors.identity(Maybe.Just).asTest({ verbose: true, times: 100 })()
+laws.functor.identity(Maybe.Just).asTest({ verbose: true, times: 100 })()
 // + OK passed 100 tests.
 ```
 
